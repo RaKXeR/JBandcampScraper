@@ -45,7 +45,7 @@ public class BandcampInfo {
         }
         
         String html = IOUtils.toString(get.getResponseBodyAsStream(), "utf-8");
-        html = html.split("var SiteData", 2)[1].split("CurrencyData")[0]; //reduces the size of the html string by 90+% to speed up future regex
+        html = html.split("var SiteData", 2)[1].split("CurrencyData", 2)[0]; //reduces the size of the html string by 90+% to speed up future regex
         
         Matcher matcher = Pattern.compile("artist:\\s\"([^\"]*)").matcher(html);
         artist = matcher.find() ? matcher.group(1) : null; //this artist variable is not the correct artist variable, but values are the same, so it should be fine
