@@ -10,11 +10,13 @@ import org.apache.commons.io.IOUtils;
 
 public class Song {
     private String title, streamingURL, artURL;
+    private double duration;
     
-    public Song(String title, String streamingURL, String artURL) {
+    public Song(String title, String streamingURL, String artURL, double duration) {
         this.title = title;
         this.streamingURL = streamingURL;
         this.artURL = artURL;
+        this.duration = duration;
     }
     
     public String getTitle() {
@@ -29,6 +31,10 @@ public class Song {
         return artURL;
     }
     
+    public double getDuration() {
+        return duration;
+    }
+    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -41,9 +47,13 @@ public class Song {
         this.artURL = artURL;
     }
     
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+    
     @Override
     public String toString() {
-        return String.format("{%s, %s, %s}", title, streamingURL, artURL);
+        return String.format("{%s, %s, %s, %f}", title, streamingURL, artURL, duration);
     }
     
     public static ArrayList<Song> getSongs(String url) throws IOException {
@@ -61,8 +71,10 @@ public class Song {
         
         Matcher matcher = Pattern.compile("artist:\\s\"([^\"]*)").matcher(html);
         artist = matcher.find() ? matcher.group(1) : null; //this artist variable is not the correct artist variable, but values are the same, so it should be fine
+        System.out.println(artist);
         matcher = Pattern.compile("art_id\"*:\\s([^,]*)").matcher(html);
         artURL = matcher.find() ? "https://f4.bcbits.com/img/a" + matcher.group(1) + "_16.jpg" : null; //same deal as with the artist variable
+        System.out.println(artURL);
         
         if (artist == null || artURL == null) {
             throw new RuntimeException("Couldn't find all the necessary variables on the webpage provided (bandcamp)." + artist + artURL);
@@ -78,11 +90,15 @@ public class Song {
             } else {
                 title = artist + " - " + matcher.group(1);
             }
-            songs.add(new Song(title, null, artURL));
+            songs.add(new Song(title, null, artURL, 0));
         }
-        matcher = Pattern.compile("128\":\"//([^\"]*)").matcher(html);
+        matcher = Pattern.compile("128\":\"[^/]*/([^\"]*)").matcher(html);
         for (int i = 0; i < songs.size() && matcher.find(); i++) {
             songs.get(i).setStreamingURL(matcher.group(1));
+        }
+        matcher = Pattern.compile("duration\":([^,]*)").matcher(html);
+        for (int i = 0; i < songs.size() && matcher.find(); i++) {
+            songs.get(i).setDuration(Double.parseDouble(matcher.group(1)));
         }
         return songs;
     }
