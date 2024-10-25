@@ -1,7 +1,5 @@
 package rakxer.jbandcampscraper;
 
-import rakxer.jbandcampscraper.BandcampParser.Song;
-
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
