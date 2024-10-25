@@ -13,52 +13,54 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Song {
-    private String title, streamingURL, artURL;
-    private double duration;
-    
-    public Song(String title, String streamingURL, String artURL, double duration) {
-        this.title = title;
-        this.streamingURL = streamingURL;
-        this.artURL = artURL;
-        this.duration = duration;
-    }
-    
-    public String getTitle() {
-        return title;
-    }
-    
-    public String getStreamingURL() {
-        return streamingURL;
-    }
-    
-    public String getArtworkURL() {
-        return artURL;
-    }
-    
-    public double getDuration() {
-        return duration;
-    }
-    
-    public void setTitle(String title) {
-        this.title = title;
-    }
-    
-    public void setStreamingURL(String streamingURL) {
-        this.streamingURL = streamingURL;
-    }
-    
-    public void setArtworkURL(String artURL) {
-        this.artURL = artURL;
-    }
-    
-    public void setDuration(double duration) {
-        this.duration = duration;
-    }
-    
-    @Override
-    public String toString() {
-        return String.format("{%s, %s, %s, %f}", title, streamingURL, artURL, duration);
+public class BandcampParser {
+    public static class Song {
+        private String title, streamingURL, artURL;
+        private double duration;
+
+        public Song(String title, String streamingURL, String artURL, double duration) {
+            this.title = title;
+            this.streamingURL = streamingURL;
+            this.artURL = artURL;
+            this.duration = duration;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public String getStreamingURL() {
+            return streamingURL;
+        }
+
+        public String getArtworkURL() {
+            return artURL;
+        }
+
+        public double getDuration() {
+            return duration;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public void setStreamingURL(String streamingURL) {
+            this.streamingURL = streamingURL;
+        }
+
+        public void setArtworkURL(String artURL) {
+            this.artURL = artURL;
+        }
+
+        public void setDuration(double duration) {
+            this.duration = duration;
+        }
+
+        @Override
+        public String toString() {
+            return String.format("{%s, %s, %s, %f}", title, streamingURL, artURL, duration);
+        }
     }
     
     public static ArrayList<Song> getSongs(String url) throws IOException {
@@ -87,7 +89,7 @@ public class Song {
         matcher = Pattern.compile("\"art_id\":\\s*([^,]*)").matcher(html);
         artURL = matcher.find() ? "https://f4.bcbits.com/img/a" + matcher.group(1) + "_16.jpg" : null; //same deal as with the artist variable
         System.out.println(artURL);
-        
+
         if (artist == null || artURL == null) {
             throw new RuntimeException("Couldn't find all the necessary variables on the webpage provided (bandcamp)." + artist + artURL);
         }

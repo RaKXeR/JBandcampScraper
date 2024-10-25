@@ -1,5 +1,7 @@
 package rakxer.jbandcampscraper;
 
+import rakxer.jbandcampscraper.BandcampParser.Song;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +20,7 @@ public class BandcampInfo {
         Matcher matcher = Pattern.compile("\\w*\\.bandcamp.com/(track|album)/[^/]*/{0,1}$").matcher(url);
         if (matcher.find()) {
             try {
-                List<Song> songs = Song.getSongs(url);
+                List<Song> songs = BandcampParser.getSongs(url);
                 songs.stream().forEach(song -> {
                     System.out.println(song.toString());
                 });
