@@ -18,7 +18,7 @@ public class BandcampInfo {
         Matcher matcher = Pattern.compile("\\w*\\.bandcamp.com/(track|album)/[^/]*/{0,1}$").matcher(url);
         if (matcher.find()) {
             try {
-                List<Song> songs = BandcampParser.getSongs(url);
+                List<Song> songs = getSongs(url);
                 songs.stream().forEach(song -> {
                     System.out.println(song.toString());
                 });
@@ -28,5 +28,9 @@ public class BandcampInfo {
         } else {
             System.out.println("The URL you inserted wasn't a valid bandcamp link.");
         }
+    }
+
+    private static List<Song> getSongs(String url) throws IOException {
+        return new BandcampParser().getSongs(url);
     }
 }

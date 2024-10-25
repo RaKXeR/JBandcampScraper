@@ -15,23 +15,11 @@ import java.util.regex.Pattern;
 
 public class BandcampParser {
 
-    public static ArrayList<Song> getSongs(String url) throws IOException {
-        String artist, artURL;
+    public ArrayList<Song> getSongs(String url) throws IOException {
+        String html = getPageHtml(url);
         ArrayList<Song> songs = new ArrayList<>();
-        String html;
-        CloseableHttpClient client = HttpClients.createDefault();
-        HttpGet get = new HttpGet(url);
+        String artist, artURL;
 
-        try (CloseableHttpResponse response = client.execute(get)) {
-            int errcode = response.getCode();
-            if (errcode != 200) {
-                throw new RuntimeException("Http error " + errcode + " from bandcamp");
-            }
-
-            html = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-        } catch (IOException | ParseException e) {
-            throw new RuntimeException("Couldn't get the webpage from Bandcamp");
-        }
         html = html.split("data-tralbum=", 2)[1].split("data-cart=", 2)[0]; //reduces the size of the html string by 90+% to speed up future regex
         html = html.replace("&quot;", "\"");
 
@@ -72,4 +60,26 @@ public class BandcampParser {
         }
         return songs;
     }
+
+    private String getPageHtml(String url) {
+        String html;
+        try (CloseableHttpClient client = HttpClients.createDefault()) {
+            HttpGet get = new HttpGet(url);
+
+            try (CloseableHttpResponse response = client.execute(get)) {
+                int errcode = response.getCode();
+                if (errcode != 200) {
+                    throw new RuntimeException("Http error " + errcode + " from bandcamp");
+                }
+
+                html = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+            } catch (IOException | ParseException e) {
+                throw new RuntimeException("Couldn't get the webpage from Bandcamp");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return html;
+    }
+
 }
