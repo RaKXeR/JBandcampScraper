@@ -1,12 +1,17 @@
 package rakxer.jbandcampscraper;
 
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ParseException;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.io.IOUtils;
 
 public class Song {
     private String title, streamingURL, artURL;
@@ -59,14 +64,20 @@ public class Song {
     public static ArrayList<Song> getSongs(String url) throws IOException {
         String artist, artURL;
         ArrayList<Song> songs = new ArrayList<>();
-        HttpClient client = new HttpClient();
-        GetMethod get = new GetMethod(url);
-        int errcode = client.executeMethod(get);
-        if (errcode != 200) {
-            throw new RuntimeException("Http error " + errcode + " from bandcamp");
+        String html;
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet get = new HttpGet(url);
+
+        try (CloseableHttpResponse response = client.execute(get)) {
+            int errcode = response.getCode();
+            if (errcode != 200) {
+                throw new RuntimeException("Http error " + errcode + " from bandcamp");
+            }
+
+            html = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException("Couldn't get the webpage from Bandcamp");
         }
-        
-        String html = IOUtils.toString(get.getResponseBodyAsStream(), "utf-8");
         html = html.split("data-tralbum=", 2)[1].split("data-cart=", 2)[0]; //reduces the size of the html string by 90+% to speed up future regex
         html = html.replace("&quot;", "\"");
 
