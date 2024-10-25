@@ -9,8 +9,5 @@
         <module name="JBandcampScraper" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="JBandcampScraper" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>
