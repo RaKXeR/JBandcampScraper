@@ -29,7 +29,7 @@ public class Main {
     }
 
     private static List<String> getSongs(String url) {
-        List<Song> songs = new BandcampParser().getSongs(url);
+        List<Song> songs = new BandcampParser(url).getSongs(url);
         return songs.stream().map(Song::toString).collect(Collectors.toList());
     }
 
