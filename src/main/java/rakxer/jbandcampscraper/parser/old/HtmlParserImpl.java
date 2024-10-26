@@ -8,6 +8,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
+@Deprecated
 public class HtmlParserImpl implements HtmlParser {
 
     private final HttpClient client;
