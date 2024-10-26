@@ -1,4 +1,4 @@
-package rakxer.jbandcampscraper.parser;
+package rakxer.bandcamp.parser;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

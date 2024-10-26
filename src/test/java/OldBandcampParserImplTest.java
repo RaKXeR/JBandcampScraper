@@ -1,5 +1,5 @@
-import rakxer.jbandcampscraper.parser.BandcampParser;
-import rakxer.jbandcampscraper.parser.old.BandcampParserImpl;
+import rakxer.bandcamp.parser.BandcampParser;
+import rakxer.bandcamp.parser.old.BandcampParserImpl;
 
 @Deprecated
 public class OldBandcampParserImplTest extends BandcampParserTest {

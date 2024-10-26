@@ -1,9 +1,9 @@
-package rakxer.jbandcampscraper;
+package rakxer.bandcamp;
 
-import rakxer.jbandcampscraper.model.Song;
-import rakxer.jbandcampscraper.parser.BandcampParser;
-import rakxer.jbandcampscraper.parser.BandcampParserImpl;
-import rakxer.jbandcampscraper.parser.HtmlParserImpl;
+import rakxer.bandcamp.model.Song;
+import rakxer.bandcamp.parser.BandcampParser;
+import rakxer.bandcamp.parser.BandcampParserImpl;
+import rakxer.bandcamp.parser.HtmlParserImpl;
 
 import java.util.List;
 import java.util.Scanner;

@@ -1,5 +1,5 @@
-import rakxer.jbandcampscraper.parser.BandcampParser;
-import rakxer.jbandcampscraper.parser.BandcampParserImpl;
+import rakxer.bandcamp.parser.BandcampParser;
+import rakxer.bandcamp.parser.BandcampParserImpl;
 
 public class BandcampParserImplTest extends BandcampParserTest {
 

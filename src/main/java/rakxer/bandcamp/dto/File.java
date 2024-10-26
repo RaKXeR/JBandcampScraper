@@ -1,4 +1,4 @@
-package rakxer.jbandcampscraper.dto;
+package rakxer.bandcamp.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

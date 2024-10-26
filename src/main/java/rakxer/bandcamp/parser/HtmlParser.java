@@ -1,4 +1,4 @@
-package rakxer.jbandcampscraper.parser;
+package rakxer.bandcamp.parser;
 
 public interface HtmlParser {
 

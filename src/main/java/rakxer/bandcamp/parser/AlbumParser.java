@@ -1,4 +1,4 @@
-package rakxer.jbandcampscraper.parser;
+package rakxer.bandcamp.parser;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -6,7 +6,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
-import rakxer.jbandcampscraper.dto.Album;
+import rakxer.bandcamp.dto.Album;
 
 /**
  * Converts the HTML body of a Bandcamp page into an Album DTO.

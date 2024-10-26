@@ -1,9 +1,9 @@
-package rakxer.jbandcampscraper.parser.old;
+package rakxer.bandcamp.parser.old;
 
 import lombok.Data;
-import rakxer.jbandcampscraper.model.Song;
-import rakxer.jbandcampscraper.parser.BandcampParser;
-import rakxer.jbandcampscraper.parser.HtmlParser;
+import rakxer.bandcamp.model.Song;
+import rakxer.bandcamp.parser.BandcampParser;
+import rakxer.bandcamp.parser.HtmlParser;
 
 import java.util.ArrayList;
 import java.util.List;

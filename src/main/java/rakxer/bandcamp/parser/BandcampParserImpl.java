@@ -1,8 +1,8 @@
-package rakxer.jbandcampscraper.parser;
+package rakxer.bandcamp.parser;
 
-import rakxer.jbandcampscraper.model.Song;
-import rakxer.jbandcampscraper.dto.Album;
-import rakxer.jbandcampscraper.mapper.JsonAlbumMapper;
+import rakxer.bandcamp.model.Song;
+import rakxer.bandcamp.dto.Album;
+import rakxer.bandcamp.mapper.JsonAlbumMapper;
 
 import java.util.List;
 import java.util.regex.Pattern;

@@ -1,4 +1,4 @@
-package rakxer.jbandcampscraper.model;
+package rakxer.bandcamp.model;
 
 import lombok.Getter;
 import lombok.ToString;
