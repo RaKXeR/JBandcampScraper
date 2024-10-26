@@ -3,7 +3,7 @@ package rakxer.bandcamp.util;
 import rakxer.bandcamp.model.Song;
 import rakxer.bandcamp.parser.BandcampParser;
 import rakxer.bandcamp.parser.HtmlParserImpl;
-import rakxer.bandcamp.parser.old.BandcampParserImpl;
+import rakxer.bandcamp.parser.BandcampParserImpl;
 
 import java.util.List;
 import java.util.stream.Collectors;
