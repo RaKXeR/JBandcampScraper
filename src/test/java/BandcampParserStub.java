@@ -1,4 +1,4 @@
-import rakxer.jbandcampscraper.parser.old.BandcampParser;
+import rakxer.jbandcampscraper.parser.BandcampParser;
 
 import java.io.IOException;
 import java.nio.file.Files;
