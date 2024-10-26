@@ -4,10 +4,10 @@ import rakxer.bandcamp.model.Song;
 import rakxer.bandcamp.parser.BandcampParser;
 import rakxer.bandcamp.parser.BandcampParserImpl;
 import rakxer.bandcamp.parser.HtmlParserImpl;
+import rakxer.bandcamp.util.BandcampFetcher;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
 
 public class Main {
     
@@ -21,9 +21,9 @@ public class Main {
     }
 
     private static List<String> getSongs(String url) {
-        BandcampParser parser = new BandcampParserImpl(new HtmlParserImpl());
-        List<Song> songs = parser.getSongs(url);
-        return songs.stream().map(Song::toString).collect(Collectors.toList());
+        BandcampFetcher fetcher = new BandcampFetcher();
+        List<Song> songs = fetcher.getSongs(url);
+        return fetcher.asStrings(songs);
     }
 
 }
