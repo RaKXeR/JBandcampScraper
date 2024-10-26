@@ -19,8 +19,7 @@ public class Main {
 
     private static List<String> getSongs(String url) {
         BandcampParserImpl parser = new BandcampParserImpl();
-        parser.setURL(url);
-        List<Song> songs = parser.getSongs();
+        List<Song> songs = parser.getSongs(url);
         return songs.stream().map(Song::toString).collect(Collectors.toList());
     }
 

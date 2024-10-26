@@ -5,32 +5,25 @@ import rakxer.jbandcampscraper.dto.Album;
 import rakxer.jbandcampscraper.mapper.JsonAlbumMapper;
 
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class BandcampParserImpl {
 
-    private String html;
+    private final Pattern URL_PATTERN = Pattern.compile("\\w*\\.bandcamp.com/(track|album)/[^/]*/?$");
 
-    public void setURL(String url) {
+    public List<Song> getSongs(String url) {
         if (!isValidURL(url)) {
             throw new IllegalArgumentException("Invalid bandcamp URL");
         }
-        html = getPage(url);
-    }
+        String html = getPage(url);
 
-    public List<Song> getSongs() {
-        if (html == null) {
-            throw new IllegalStateException("Please use setURL() before calling getSongs()");
-        }
         AlbumParser albumParser = new AlbumParser();
         Album album = albumParser.getAlbum(html);
         return JsonAlbumMapper.getSongs(album);
     }
 
-    public static boolean isValidURL(String url) {
-        Matcher matcher = Pattern.compile("\\w*\\.bandcamp.com/(track|album)/[^/]*/?$").matcher(url);
-        return matcher.find();
+    private boolean isValidURL(String url) {
+        return url != null && URL_PATTERN.matcher(url).find();
     }
 
     protected String getPage(String url) {
