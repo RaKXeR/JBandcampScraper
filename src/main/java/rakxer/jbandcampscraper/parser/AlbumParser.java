@@ -14,7 +14,8 @@ public class AlbumParser {
     private static final String  ALBUM_ATTRIBUTE = "data-tralbum";
 
     public Album getAlbum(String html) {
-        Element script = getScript(html);
+        Document document = getDocument(html);
+        Element script = getScript(document);
         if (script == null) {
             throw new RuntimeException("Unable to find Album data in HTML");
         }
@@ -39,8 +40,11 @@ public class AlbumParser {
         return script.attr(ALBUM_ATTRIBUTE).replace("&quot;", "\"");
     }
 
-    private Element getScript(String html) {
-        Document document = Jsoup.parse(html, "", Parser.xmlParser());
+    private Document getDocument(String html) {
+        return Jsoup.parse(html, "", Parser.xmlParser());
+    }
+
+    private Element getScript(Document document) {
         return document.selectFirst(String.format("script[src^='%s']", SCRIPT_SRC));
     }
 
