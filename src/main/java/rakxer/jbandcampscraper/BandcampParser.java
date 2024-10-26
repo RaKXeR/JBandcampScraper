@@ -63,22 +63,20 @@ public class BandcampParser {
 
     private String getPageHtml(String url) {
         String html;
-        try (CloseableHttpClient client = HttpClients.createDefault()) {
-            HttpGet get = new HttpGet(url);
+        CloseableHttpClient client = HttpClients.createDefault();
+        HttpGet get = new HttpGet(url);
 
-            try (CloseableHttpResponse response = client.execute(get)) {
-                int errcode = response.getCode();
-                if (errcode != 200) {
-                    throw new RuntimeException("Http error " + errcode + " from bandcamp");
-                }
-
-                html = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
-            } catch (IOException | ParseException e) {
-                throw new RuntimeException("Couldn't get the webpage from Bandcamp");
+        try (CloseableHttpResponse response = client.execute(get)) {
+            int errcode = response.getCode();
+            if (errcode != 200) {
+                throw new RuntimeException("Http error " + errcode + " from bandcamp");
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            html = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
+        } catch (IOException | ParseException e) {
+            throw new RuntimeException("Couldn't get the webpage from Bandcamp");
         }
+
         return html;
     }
 
