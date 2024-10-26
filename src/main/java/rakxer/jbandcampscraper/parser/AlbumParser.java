@@ -15,6 +15,7 @@ public class AlbumParser {
 
     private static final String SCRIPT_SRC = "https://s4.bcbits.com/bundle/bundle/1/tralbum_head";
     private static final String  ALBUM_ATTRIBUTE = "data-tralbum";
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     public Album getAlbum(String html) {
         Document document = getDocument(html);
@@ -31,7 +32,6 @@ public class AlbumParser {
     private Album parseAlbum(String albumJson) {
         Album album;
         try {
-            ObjectMapper mapper = new ObjectMapper();
             album = mapper.readValue(albumJson, Album.class);
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Couldn't parse Album JSON", e);
