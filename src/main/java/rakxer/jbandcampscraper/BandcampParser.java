@@ -22,7 +22,7 @@ public class BandcampParser {
         html = getPage(url);
     }
 
-    public List<Song> getSongs(String url) {
+    public List<Song> getSongs() {
         List<Song> songs = new ArrayList<>();
         String artURL;
 
