@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 
-public class BandcampInfo {
+public class Main {
     
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
