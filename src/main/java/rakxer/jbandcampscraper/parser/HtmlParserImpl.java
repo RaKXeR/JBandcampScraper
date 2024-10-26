@@ -10,11 +10,11 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class HtmlParser {
+public class HtmlParserImpl {
 
     private final HttpClient client;
 
-    public HtmlParser() {
+    public HtmlParserImpl() {
         this.client = HttpClient.newHttpClient();
     }
 

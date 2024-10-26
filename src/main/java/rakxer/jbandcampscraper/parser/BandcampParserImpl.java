@@ -31,7 +31,7 @@ public class BandcampParserImpl implements BandcampParser {
     }
 
     protected String getPage(String url) {
-        HtmlParser parser = new HtmlParser();
+        HtmlParserImpl parser = new HtmlParserImpl();
         return parser.getPage(url);
     }
 
