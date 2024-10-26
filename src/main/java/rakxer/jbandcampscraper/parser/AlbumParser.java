@@ -48,4 +48,10 @@ public class AlbumParser {
         return document.selectFirst(String.format("script[src^='%s']", SCRIPT_SRC));
     }
 
+    // Use if art parsing breaks in the future
+    private String getArtUrl(Document document) {
+        Element linkElement = document.selectFirst("link[rel=image_src]");
+        return linkElement != null ? linkElement.attr("href") : null;
+    }
+
 }
