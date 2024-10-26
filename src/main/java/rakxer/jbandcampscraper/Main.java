@@ -1,5 +1,6 @@
 package rakxer.jbandcampscraper;
 
+import rakxer.jbandcampscraper.parser.BandcampParser;
 import rakxer.jbandcampscraper.parser.BandcampParserImpl;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class Main {
     }
 
     private static List<String> getSongs(String url) {
-        BandcampParserImpl parser = new BandcampParserImpl();
+        BandcampParser parser = new BandcampParserImpl();
         List<Song> songs = parser.getSongs(url);
         return songs.stream().map(Song::toString).collect(Collectors.toList());
     }

@@ -7,10 +7,14 @@ import rakxer.jbandcampscraper.mapper.JsonAlbumMapper;
 import java.util.List;
 import java.util.regex.Pattern;
 
-public class BandcampParserImpl {
+public class BandcampParserImpl implements BandcampParser {
 
     private final Pattern URL_PATTERN = Pattern.compile("\\w*\\.bandcamp.com/(track|album)/[^/]*/?$");
 
+    public BandcampParserImpl() {
+    }
+
+    @Override
     public List<Song> getSongs(String url) {
         if (!isValidURL(url)) {
             throw new IllegalArgumentException("Invalid bandcamp URL");

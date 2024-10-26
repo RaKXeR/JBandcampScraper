@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class BandcampParserImplImplTest {
+class BandcampParserImplTest {
 
     private static final String TRACK_HTML = "src/test/resources/track.html";
     private static final String TRACK_URL = "https://rakxer.bandcamp.com/track/track-1";
