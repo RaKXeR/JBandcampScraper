@@ -1,11 +1,13 @@
 package rakxer.jbandcampscraper.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.ToString;
 
-@Data
+@Getter
+@ToString
 public class Song {
-    private String title, streamingURL, artURL;
-    private double duration;
+    private final String title, streamingURL, artURL;
+    private final double duration;
 
     private Song(Builder builder) {
         this.title = builder.title;

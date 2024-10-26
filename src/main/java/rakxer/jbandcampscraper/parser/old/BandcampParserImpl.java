@@ -1,5 +1,6 @@
 package rakxer.jbandcampscraper.parser.old;
 
+import lombok.Data;
 import rakxer.jbandcampscraper.model.Song;
 import rakxer.jbandcampscraper.parser.BandcampParser;
 import rakxer.jbandcampscraper.parser.HtmlParser;
@@ -15,6 +16,13 @@ public class BandcampParserImpl implements BandcampParser {
     private String html;
     private final HtmlParser htmlParser;
 
+    @Data
+    private static class SongData {
+        private String title;
+        private String streamingURL;
+        private double duration;
+    }
+
     public BandcampParserImpl(HtmlParser htmlParser) {
         this.htmlParser = htmlParser;
     }
@@ -26,7 +34,7 @@ public class BandcampParserImpl implements BandcampParser {
         }
         html = prune(htmlParser.getPage(url));
 
-        List<Song> songs = new ArrayList<>();
+        List<SongData> songData = new ArrayList<>();
         String artId;
 
         String artist = getArtist();
@@ -39,29 +47,36 @@ public class BandcampParserImpl implements BandcampParser {
         List<String> titles = getSongTitles(artist);
 
         for (String title : titles) {
-            // Incorrect use of builder as we're passing placeholders for streaming URL and duration, here for legacy reasons
-            songs.add(new Song.Builder()
-                    .title(title)
-                    .streamingURL("placeholder")
-                    .artId(artId)
-                    .duration(1)
-                    .build());
+            SongData song = new SongData();
+            song.setTitle(title);
+            songData.add(song);
         }
 
-        fillStreamingURLs(songs);
-        fillSongDurations(songs);
+        fillStreamingURLs(songData);
+        fillSongDurations(songData);
 
+        List<Song> songs = new ArrayList<>();
+        for (SongData song : songData) {
+            songs.add(new Song.Builder()
+                    .artist(artist)
+                    .title(song.getTitle())
+                    .streamingURL(song.getStreamingURL())
+                    .artId(artId)
+                    .duration(song.getDuration())
+                    .build()
+            );
+        }
         return songs;
     }
 
-    private void fillSongDurations(List<Song> songs) {
+    private void fillSongDurations(List<SongData> songs) {
         Matcher matcher = Pattern.compile("duration\":([^,]*)").matcher(html);
         for (int i = 0; i < songs.size() && matcher.find(); i++) {
             songs.get(i).setDuration(Double.parseDouble(matcher.group(1)));
         }
     }
 
-    private void fillStreamingURLs(List<Song> songs) {
+    private void fillStreamingURLs(List<SongData> songs) {
         Matcher matcher = Pattern.compile("128\":\"[^/]*/*([^\"]*)").matcher(html);
         for (int i = 0; i < songs.size() && matcher.find(); i++) {
             songs.get(i).setStreamingURL(matcher.group(1));
