@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.Test;
+import rakxer.jbandcampscraper.parser.BandcampParser;
 import rakxer.jbandcampscraper.parser.BandcampParserImpl;
 import rakxer.jbandcampscraper.Song;
+import rakxer.jbandcampscraper.parser.HtmlParser;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -17,7 +19,7 @@ class BandcampParserImplTest {
     void getSongs_ReturnsExpectedTitle_WhenPageIsValidTrack() {
         // Arrange
         String expected = "Cyber Latte LoFi - A Dirge for Fallen Autobots";
-        BandcampParserImpl parser = getParser();
+        BandcampParser parser = getParser(TRACK_HTML);
         // Act
         List<Song> songs = parser.getSongs(TRACK_URL);
         // Assert
@@ -28,7 +30,7 @@ class BandcampParserImplTest {
     void getSongs_ContainsStreamingURL_WhenPageIsValidTrack() {
         // Arrange
         Pattern pattern = Pattern.compile("bcbits\\.com/stream/[^/]*/mp3-\\d+/\\d+\\?.*token=.+");
-        BandcampParserImpl parser = getParser();
+        BandcampParser parser = getParser(TRACK_HTML);
         // Act
         List<Song> songs = parser.getSongs(TRACK_URL);
         // Assert
@@ -40,7 +42,7 @@ class BandcampParserImplTest {
     void getSongs_ContainsArtURL_WhenPageIsValidTrack() {
         // Arrange
         Pattern pattern = Pattern.compile("f4\\.bcbits\\.com/img/.+");
-        BandcampParserImpl parser = getParser();
+        BandcampParser parser = getParser(TRACK_HTML);
         // Act
         List<Song> songs = parser.getSongs(TRACK_URL);
         // Assert
@@ -52,15 +54,16 @@ class BandcampParserImplTest {
     void getSongs_ContainsDuration_WhenPageIsValidTrack() {
         // Arrange
         double expected = 327.958;
-        BandcampParserImpl parser = getParser();
+        BandcampParser parser = getParser(TRACK_HTML);
         // Act
         List<Song> songs = parser.getSongs(TRACK_URL);
         // Assert
         assertEquals(expected, songs.get(0).getDuration());
     }
 
-    private BandcampParserStub getParser() {
-        return new BandcampParserStub(TRACK_HTML);
+    private BandcampParser getParser(String htmlFilePath) {
+        HtmlParser htmlParser = new HtmlParserStub(htmlFilePath);
+        return new BandcampParserImpl(htmlParser);
     }
 
 }

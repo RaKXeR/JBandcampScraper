@@ -10,8 +10,10 @@ import java.util.regex.Pattern;
 public class BandcampParserImpl implements BandcampParser {
 
     private final Pattern URL_PATTERN = Pattern.compile("\\w*\\.bandcamp.com/(track|album)/[^/]*/?$");
+    private final HtmlParser htmlParser;
 
-    public BandcampParserImpl() {
+    public BandcampParserImpl(HtmlParser htmlParser) {
+        this.htmlParser = htmlParser;
     }
 
     @Override
@@ -19,7 +21,7 @@ public class BandcampParserImpl implements BandcampParser {
         if (!isValidURL(url)) {
             throw new IllegalArgumentException("Invalid bandcamp URL");
         }
-        String html = getPage(url);
+        String html = htmlParser.getPage(url);
 
         AlbumParser albumParser = new AlbumParser();
         Album album = albumParser.getAlbum(html);
@@ -28,11 +30,6 @@ public class BandcampParserImpl implements BandcampParser {
 
     private boolean isValidURL(String url) {
         return url != null && URL_PATTERN.matcher(url).find();
-    }
-
-    protected String getPage(String url) {
-        HtmlParserImpl parser = new HtmlParserImpl();
-        return parser.getPage(url);
     }
 
 }

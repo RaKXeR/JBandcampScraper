@@ -10,7 +10,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class HtmlParserImpl {
+public class HtmlParserImpl implements HtmlParser {
 
     private final HttpClient client;
 
@@ -18,6 +18,7 @@ public class HtmlParserImpl {
         this.client = HttpClient.newHttpClient();
     }
 
+    @Override
     public String getPage(String url) {
         String html = getHtml(url);
         Safelist safelist = Safelist.relaxed()
