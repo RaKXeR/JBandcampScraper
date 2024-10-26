@@ -1,4 +1,4 @@
-package rakxer.jbandcampscraper;
+package rakxer.jbandcampscraper.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
