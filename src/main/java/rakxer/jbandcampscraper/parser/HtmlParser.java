@@ -23,6 +23,7 @@ public class HtmlParser {
         Safelist safelist = Safelist.relaxed()
                 .addTags("script")
                 .addAttributes("script", "src", "data-tralbum")
+                .addAttributes("link", "rel", "href")
                 ;
 
         // Clean and format the HTML
