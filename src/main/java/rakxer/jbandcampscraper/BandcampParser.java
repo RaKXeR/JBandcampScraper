@@ -19,6 +19,9 @@ public class BandcampParser {
     private final String html;
 
     public BandcampParser(String url) {
+        if (!isValidURL(url)) {
+            throw new IllegalArgumentException("Invalid bandcamp URL");
+        }
         html = getPage(url);
     }
 
@@ -95,6 +98,11 @@ public class BandcampParser {
         // Not the correct artist variable, but values are the same, so it should be fine
         artist = matcher.find() ? matcher.group(1) : null;
         return artist;
+    }
+
+    private boolean isValidURL(String url) {
+        Matcher matcher = Pattern.compile("\\w*\\.bandcamp.com/(track|album)/[^/]*/?$").matcher(url);
+        return matcher.find();
     }
 
     private String getPage(String url) {
