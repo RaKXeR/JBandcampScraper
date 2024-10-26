@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class BandcampParserImplTest {
+abstract class BandcampParserTest {
 
     private static final String TRACK_HTML = "src/test/resources/track.html";
     private static final String TRACK_URL = "https://rakxer.bandcamp.com/track/track-1";
@@ -61,9 +61,10 @@ class BandcampParserImplTest {
         assertEquals(expected, songs.get(0).getDuration());
     }
 
-    private BandcampParser getParser(String htmlFilePath) {
-        HtmlParser htmlParser = new HtmlParserStub(htmlFilePath);
-        return new BandcampParserImpl(htmlParser);
+    protected HtmlParser getHtmlParser(String htmlFilePath) {
+        return new HtmlParserStub(htmlFilePath);
     }
+
+    protected abstract BandcampParser getParser(String htmlFilePath);
 
 }
