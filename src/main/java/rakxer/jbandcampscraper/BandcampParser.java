@@ -105,7 +105,7 @@ public class BandcampParser {
         return matcher.find();
     }
 
-    private String getPage(String url) {
+    protected String getPage(String url) {
         String html;
         CloseableHttpClient client = HttpClients.createDefault();
         HttpGet get = new HttpGet(url);
