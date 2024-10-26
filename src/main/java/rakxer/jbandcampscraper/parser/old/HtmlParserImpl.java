@@ -1,16 +1,18 @@
 package rakxer.jbandcampscraper.parser.old;
 
+import rakxer.jbandcampscraper.parser.HtmlParser;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class HtmlParser {
+public class HtmlParserImpl implements HtmlParser {
 
     private final HttpClient client;
 
-    public HtmlParser() {
+    public HtmlParserImpl() {
         this.client = HttpClient.newHttpClient();
     }
 

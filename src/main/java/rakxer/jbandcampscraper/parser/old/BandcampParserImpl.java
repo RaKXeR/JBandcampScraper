@@ -1,27 +1,29 @@
 package rakxer.jbandcampscraper.parser.old;
 
 import rakxer.jbandcampscraper.Song;
+import rakxer.jbandcampscraper.parser.BandcampParser;
+import rakxer.jbandcampscraper.parser.HtmlParser;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BandcampParser {
+public class BandcampParserImpl implements BandcampParser {
 
     private String html;
+    private final HtmlParser htmlParser;
 
-    public void setURL(String url) {
+    public BandcampParserImpl(HtmlParser htmlParser) {
+        this.htmlParser = htmlParser;
+    }
+
+    @Override
+    public List<Song> getSongs(String url) {
         if (!isValidURL(url)) {
             throw new IllegalArgumentException("Invalid bandcamp URL");
         }
-        html = prune(getPage(url));
-    }
-
-    public List<Song> getSongs() {
-        if (html == null) {
-            throw new IllegalStateException("Please use setURL() before calling getSongs()");
-        }
+        html = prune(htmlParser.getPage(url));
 
         List<Song> songs = new ArrayList<>();
         String artURL;
@@ -97,14 +99,9 @@ public class BandcampParser {
         return artist;
     }
 
-    public static boolean isValidURL(String url) {
+    private boolean isValidURL(String url) {
         Matcher matcher = Pattern.compile("\\w*\\.bandcamp.com/(track|album)/[^/]*/?$").matcher(url);
         return matcher.find();
-    }
-
-    protected String getPage(String url) {
-        HtmlParser parser = new HtmlParser();
-        return parser.getPage(url);
     }
 
     private String prune(String html) {
