@@ -26,9 +26,7 @@ public class BandcampParser {
         html = prune(html);
 
         artist = getArtist(html);
-        System.out.println(artist);
         artURL = getArtURL(html);
-        System.out.println(artURL);
 
         if (artist == null || artURL == null) {
             throw new RuntimeException("Couldn't find all the necessary variables on the webpage provided (bandcamp)." + artist + artURL);
