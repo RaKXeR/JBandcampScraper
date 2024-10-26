@@ -8,6 +8,9 @@ import org.jsoup.nodes.Element;
 import org.jsoup.parser.Parser;
 import rakxer.jbandcampscraper.dto.Album;
 
+/**
+ * Converts the HTML body of a Bandcamp page into an Album DTO.
+ */
 public class AlbumParser {
 
     private static final String SCRIPT_SRC = "https://s4.bcbits.com/bundle/bundle/1/tralbum_head";
