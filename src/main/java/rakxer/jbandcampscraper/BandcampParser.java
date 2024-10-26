@@ -16,49 +16,47 @@ import java.util.regex.Pattern;
 
 public class BandcampParser {
 
-    private final List<Song> songs = new ArrayList<>();
-    private String artist;
-
     public List<Song> getSongs(String url) {
+        List<Song> songs = new ArrayList<>();
         String html = getPage(url);
         String artURL;
 
         html = prune(html);
 
-        artist = getArtist(html);
+        String artist = getArtist(html);
         artURL = getArtURL(html);
 
         if (artist == null || artURL == null) {
             throw new RuntimeException("Couldn't find all the necessary variables on the webpage provided (bandcamp)." + artist + artURL);
         }
 
-        List<String> titles = getSongTitles(html);
+        List<String> titles = getSongTitles(html, artist);
 
         for (String title : titles) {
             songs.add(new Song(title, null, artURL, 0));
         }
 
-        fillStreamingURLs(html);
-        fillSongDurations(html);
+        fillStreamingURLs(html, songs);
+        fillSongDurations(html, songs);
 
         return songs;
     }
 
-    private void fillSongDurations(String html) {
+    private void fillSongDurations(String html, List<Song> songs) {
         Matcher matcher = Pattern.compile("duration\":([^,]*)").matcher(html);
         for (int i = 0; i < songs.size() && matcher.find(); i++) {
             songs.get(i).setDuration(Double.parseDouble(matcher.group(1)));
         }
     }
 
-    private void fillStreamingURLs(String html) {
+    private void fillStreamingURLs(String html, List<Song> songs) {
         Matcher matcher = Pattern.compile("128\":\"[^/]*/*([^\"]*)").matcher(html);
         for (int i = 0; i < songs.size() && matcher.find(); i++) {
             songs.get(i).setStreamingURL(matcher.group(1));
         }
     }
 
-    private List<String> getSongTitles(String html) {
+    private List<String> getSongTitles(String html, String artist) {
         List<String> titles = new ArrayList<>();
         Matcher matcher = Pattern.compile("title\":\"([^\"]*)").matcher(html);
 
