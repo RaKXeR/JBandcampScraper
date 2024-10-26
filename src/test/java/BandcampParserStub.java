@@ -1,4 +1,4 @@
-import rakxer.jbandcampscraper.parser.BandcampParser;
+import rakxer.jbandcampscraper.parser.BandcampParserImpl;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -6,7 +6,7 @@ import java.nio.file.Path;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class BandcampParserStub extends BandcampParser {
+public class BandcampParserStub extends BandcampParserImpl {
 
     private final String FILE_PATH;
 
