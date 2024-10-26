@@ -2,6 +2,7 @@ package rakxer.bandcamp.parser.old;
 
 import lombok.Data;
 import rakxer.bandcamp.model.Song;
+import rakxer.bandcamp.model.SongBuilder;
 import rakxer.bandcamp.parser.BandcampParser;
 import rakxer.bandcamp.parser.HtmlParser;
 
@@ -57,7 +58,7 @@ public class BandcampParserImpl implements BandcampParser {
 
         List<Song> songs = new ArrayList<>();
         for (SongData song : songData) {
-            songs.add(new Song.Builder()
+            songs.add(new SongBuilder()
                     .artist(artist)
                     .title(song.getTitle())
                     .streamingURL(song.getStreamingURL())
