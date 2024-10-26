@@ -27,19 +27,25 @@ public class BandcampParserImpl implements BandcampParser {
         html = prune(htmlParser.getPage(url));
 
         List<Song> songs = new ArrayList<>();
-        String artURL;
+        String artId;
 
         String artist = getArtist();
-        artURL = getArtURL();
+        artId = getArtId();
 
-        if (artist == null || artURL == null) {
-            throw new RuntimeException("Couldn't find all the necessary variables on the webpage provided (bandcamp)." + artist + artURL);
+        if (artist == null || artId == null) {
+            throw new RuntimeException("Couldn't find all the necessary variables on the webpage provided (bandcamp)." + artist + artId);
         }
 
         List<String> titles = getSongTitles(artist);
 
         for (String title : titles) {
-            songs.add(new Song(title, null, artURL, 0));
+            // Incorrect use of builder as we're passing placeholders for streaming URL and duration, here for legacy reasons
+            songs.add(new Song.Builder()
+                    .title(title)
+                    .streamingURL("placeholder")
+                    .artId(artId)
+                    .duration(1)
+                    .build());
         }
 
         fillStreamingURLs(songs);
@@ -84,12 +90,12 @@ public class BandcampParserImpl implements BandcampParser {
         return titles;
     }
 
-    private String getArtURL() {
-        String artURL;
+    private String getArtId() {
+        String artId;
         Matcher matcher = Pattern.compile("\"art_id\":\\s*([^,]*)").matcher(html);
         // Not the correct art URL, but values are the same, so it should be fine
-        artURL = matcher.find() ? "https://f4.bcbits.com/img/a" + matcher.group(1) + "_16.jpg" : null;
-        return artURL;
+        artId = matcher.find() ? matcher.group(1) : null;
+        return artId;
     }
 
     private String getArtist() {

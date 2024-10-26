@@ -1,10 +1,8 @@
 package rakxer.jbandcampscraper.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-@AllArgsConstructor // TODO: Remove once old parsers are removed
 public class Song {
     private String title, streamingURL, artURL;
     private double duration;
