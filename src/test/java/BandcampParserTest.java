@@ -1,5 +1,5 @@
 import org.junit.jupiter.api.Test;
-import rakxer.jbandcampscraper.BandcampParser;
+import rakxer.jbandcampscraper.parser.old.BandcampParser;
 import rakxer.jbandcampscraper.Song;
 
 import java.util.List;

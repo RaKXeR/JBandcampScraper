@@ -1,4 +1,6 @@
-package rakxer.jbandcampscraper;
+package rakxer.jbandcampscraper.parser.old;
+
+import rakxer.jbandcampscraper.Song;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package rakxer.jbandcampscraper;
+package rakxer.jbandcampscraper.parser.old;
 
 import java.io.IOException;
 import java.net.URI;
