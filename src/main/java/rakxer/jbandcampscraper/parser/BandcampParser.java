@@ -20,6 +20,9 @@ public class BandcampParser {
     }
 
     public List<Song> getSongs() {
+        if (html == null) {
+            throw new IllegalStateException("Please use setURL() before calling getSongs()");
+        }
         AlbumParser albumParser = new AlbumParser();
         Album album = albumParser.getAlbum(html);
         return JsonAlbumMapper.getSongs(album);
