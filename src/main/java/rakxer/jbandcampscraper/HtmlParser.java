@@ -20,7 +20,7 @@ public class HtmlParser {
         try (CloseableHttpResponse response = client.execute(get)) {
             int errcode = response.getCode();
             if (errcode != 200) {
-                throw new RuntimeException("Http error " + errcode + " from bandcamp");
+                throw new RuntimeException("Http error " + errcode);
             }
             html = EntityUtils.toString(response.getEntity(), StandardCharsets.UTF_8);
         } catch (IOException | ParseException e) {
