@@ -7,23 +7,10 @@ import java.util.List;
 public interface BandcampParser {
 
     /**
-     * Sets the URL to use for parsing.
-     * @param url the URL of the song or album
-     */
-    void setURL(String url);
-
-    /**
-     * Returns a list of songs from the URL set by setURL.
+     * Returns a list of songs parsed from the given URL.
      * @return a populated list of songs
-     * @throws IllegalStateException if setURL has not been called before this method
+     * @throws IllegalArgumentException if the URL is invalid
      */
-    List<Song> getSongs();
-
-    /**
-     * Returns the contents of the page at the given URL.
-     * @param url the URL of the page to get
-     * @return the contents of the page
-     */
-    String getPage(String url);
+    List<Song> getSongs(String url);
 
 }
