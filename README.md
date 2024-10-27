@@ -22,3 +22,5 @@ This project is not published in the Maven repository, but you can include it in
         </dependency>
     </dependencies>
 ```
+
+You can then import `BandcampFetcher` For an easy way to get `Song`'s based on Bandcamp URLs.
